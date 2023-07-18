@@ -1,2 +1,1 @@
-# project-watching-you-reupload
-this is a re upload of an old repo
+this is a facerecognition program that uses Python3 openComputerVision2 and a pretrained model called DeepFace  
