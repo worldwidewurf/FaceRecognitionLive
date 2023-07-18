@@ -1,7 +1,7 @@
 import threading
 import cv2
 from deepface import DeepFace
-
+from watching_you import camera as detect
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
@@ -27,14 +27,13 @@ def check_face(frame):
 
 while True:
     ret, frame = cap.read()
+    cv2.imshow("Frame", frame)
     if ret == True:  
-        if counter % 30 == 0:
+        if detect.open_camera(cap):
             try:
                 threading.Thread(target=check_face(frame), args=(frame,)).start()
             except ValueError:
                 pass
-
-        counter += 1
 
         if face_match:
             print("Face Matched")
@@ -43,7 +42,6 @@ while True:
             print("Face Not Matched")
             cv2.putText(frame, "Face Not Matched", (20, 450), cv2.FONT_HERSHEY_COMPLEX, 2, (0, 0, 255), 2)
         
-        cv2.imshow("Frame", frame)
         print("sdfghj")
     if cv2.waitKey(1) == ord("q"):
         break
