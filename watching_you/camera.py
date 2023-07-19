@@ -1,5 +1,4 @@
-import cv2
-def open_camera(cam):
+def open_camera(cam,cv2,frame):
     threat = 0
     while cam.isOpened(): 
         threat += 20
@@ -12,6 +11,8 @@ def open_camera(cam):
         dilate = cv2.dilate(thresh,None,iterations=3)
         contours, _= cv2.findContours(dilate,cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         # cv2.drawContours(frame1,contours,-1,(0,255,0),2)
+        cv2.imshow("Frame", frame)
+
         for circle in contours:
             if cv2.contourArea(circle)<5000:
                 continue
@@ -20,7 +21,5 @@ def open_camera(cam):
             return True
         return False
 
-if __name__ == "__main__":
-    open_camera()
 
 
