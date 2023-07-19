@@ -1,49 +1,62 @@
-import threading
 import cv2
-from deepface import DeepFace
-from watching_you import camera as detect
+import face_recognition
 
-cap = cv2.VideoCapture(0)
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
-counter = 0
-face_match = False
+def detect_face(cam):
 
-referenceImage = cv2.imread('reference.jpg')
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    
+    while cam.isOpened():
+        ret, frame = cam.read()
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        
+        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+        
+        for (x, y, w, h) in faces:
+            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 3)
+        
+        cv2.imshow("Facial Recognition <(-|-)>", frame)
+        
+        if len(faces) > 0:
 
-def check_face(frame):
-    global face_match
-    try:
-        if frame is not None:            
-            # Verify if the faces match
-            if DeepFace.verify(frame, referenceImage)["verified"]:
-                face_match = True
-            else:
-                face_match = False
+            return True,frame
+
+        return False,frame
+
+def main():
+    cam = cv2.VideoCapture(0)
+
+    picture_of_me = face_recognition.load_image_file("reference.jpg")
+    my_face_encoding = face_recognition.face_encodings(picture_of_me)
+
+    if len(my_face_encoding) == 0:
+        print("No face found in the reference image!")
+        return
+
+    while True:
+        face, frame = detect_face(cam)
+        if not face:
+            print("No face found in the webcam feed!")
+            continue
+
+        unknown_face_encoding = face_recognition.face_encodings(frame)
+
+        if len(unknown_face_encoding) == 0:
+            print("No face found in the webcam!")
+            continue
+
+        results = face_recognition.compare_faces(my_face_encoding, unknown_face_encoding[0])
+
+        if results[0] == True:
+            print("It's a picture of me!")
         else:
-            face_match = False
-    except ValueError:
-        face_match = False
+            print("It's not a picture of me!")
 
-while True:
-    ret, frame = cap.read()
-    if ret == True:
-        if detect.open_camera(cap, cv2,frame):
-            try:
-                # Create a new thread for face checking
-                threading.Thread(target=check_face, args=(frame,)).start()
-            except ValueError:
-                pass
+        if cv2.waitKey(1) & 0xFF == ord('q'):  
+            break
 
-        if face_match:
-            print("Face Matched")
-            cv2.putText(frame, "Face Matched", (20, 450), cv2.FONT_HERSHEY_COMPLEX, 2, (0, 255, 0), 2)
-        else:
-            print("Face Not Matched")
-            cv2.putText(frame, "Face Not Matched", (20, 450), cv2.FONT_HERSHEY_COMPLEX, 2, (0, 0, 255), 2)
+    cam.release()
+    cv2.destroyAllWindows()
 
-    if cv2.waitKey(1) == ord("q"):
-        break
 
-cv2.destroyAllWindows()
+main()
