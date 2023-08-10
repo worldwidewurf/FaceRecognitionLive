@@ -3,7 +3,6 @@ import face_recognition
 import threading
 import faces.loadfaces as lf
 
-# Global variables to store the latest webcam frame and detected faces
 latest_frame = None
 detected_faces = []
 
