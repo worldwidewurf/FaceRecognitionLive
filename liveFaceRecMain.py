@@ -29,13 +29,14 @@ def main():
         while True:
             if latest_frame is not None:
                 unknown_face_encoding = face_recognition.face_encodings(latest_frame)
-                
-                if len(unknown_face_encoding) > 0:
-                    results = face_recognition.compare_faces(saved_picture_face_array, unknown_face_encoding[0])
-                    if results[0] == True:
-                        print("It's a picture of me!")
-                    else:
-                        print("It's not a picture of me!")
+                for (name, face_encoding) in saved_pictures_face_list:
+                    if len(unknown_face_encoding) > 0:
+                        print(len(saved_pictures_face_list))    
+                        results = face_recognition.compare_faces(face_encoding, unknown_face_encoding[0])
+                        if results[0] == True:
+                            print("It's A Picture Of "+name+"!")
+                        else:
+                            print("You Are not In The System")
 
     recognition_thread = threading.Thread(target=recognition_thread)
     recognition_thread.daemon = True
