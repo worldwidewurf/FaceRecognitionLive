@@ -11,7 +11,7 @@ def detect_faces(frame):
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-    detected_faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+    detected_faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))
 
 def main():
     global latest_frame, detected_faces
@@ -33,6 +33,7 @@ def main():
                         results = face_recognition.compare_faces(face_encoding, unknown_face_encoding[0])
                         if results[0] == True:
                             detected_name = name
+                            # print(results)
                         else:
                             detected_name = "Unknown Person"
                         
