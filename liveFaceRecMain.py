@@ -30,12 +30,13 @@ def main():
                 unknown_face_encoding = face_recognition.face_encodings(latest_frame)
                 for (name, face_encoding) in saved_pictures_face_list:
                     if len(unknown_face_encoding) > 0:
-                        print(len(saved_pictures_face_list))    
                         results = face_recognition.compare_faces(face_encoding, unknown_face_encoding[0])
                         if results[0] == True:
-                            print("It's A Picture Of "+name+"!")
+                            detected_name = name
                         else:
-                            print("You Are not In The System")
+                            detected_name = "Unknown Person"
+                        
+                        
 
     recognition_thread = threading.Thread(target=recognition_thread)
     recognition_thread.daemon = True
@@ -46,8 +47,9 @@ def main():
         if ret:
             latest_frame = frame.copy()
             detect_faces(latest_frame)
-            for (x, y, w, h) in detected_faces:
-                cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 3)
+            for (x, y, w, h), (name, _) in zip(detected_faces, saved_pictures_face_list):
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
+                cv2.putText(frame, name, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
 
             cv2.imshow("Facial Recognition <(-|-)>", frame)
 
@@ -58,6 +60,7 @@ def main():
 
     cam.release()
     cv2.destroyAllWindows()
+
 
 if __name__ == "__main__":
     main()
