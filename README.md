@@ -11,8 +11,7 @@ This repository contains a Python script for performing facial recognition using
 You can install the required libraries using the following commands:
 
 ```
-pip install opencv-python
-pip install face-recognition
+pip install -r requirements.txt
 ```
 ## How to Use
 Clone the repository or download the provided script to your local machine.
