@@ -1,6 +1,7 @@
 import cv2
 import face_recognition
 import threading
+import faces.loadfaces as lf
 
 # Global variables to store the latest webcam frame and detected faces
 latest_frame = None
@@ -18,12 +19,9 @@ def main():
 
     cam = cv2.VideoCapture(0)
 
-    picture_of_me = face_recognition.load_image_file("reference.jpg")
-    my_face_encoding = face_recognition.face_encodings(picture_of_me)
+    
 
-    if len(my_face_encoding) == 0:
-        print("No face found in the reference image!")
-        return
+    saved_pictures_face_list = lf.loadpictures()
 
     def recognition_thread():
         global latest_frame, detected_faces
@@ -33,7 +31,7 @@ def main():
                 unknown_face_encoding = face_recognition.face_encodings(latest_frame)
                 
                 if len(unknown_face_encoding) > 0:
-                    results = face_recognition.compare_faces(my_face_encoding, unknown_face_encoding[0])
+                    results = face_recognition.compare_faces(saved_picture_face_array, unknown_face_encoding[0])
                     if results[0] == True:
                         print("It's a picture of me!")
                     else:
