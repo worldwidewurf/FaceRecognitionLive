@@ -36,7 +36,7 @@ def main():
     while True:
         face, frame = detect_face(cam)
         if not face:
-            print("No face found in the webcam feed!")
+            print("No face found in the webcam")
             continue
 
         unknown_face_encoding = face_recognition.face_encodings(frame)
