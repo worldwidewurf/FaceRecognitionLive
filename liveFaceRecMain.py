@@ -5,6 +5,7 @@ import faces.loadfaces as lf
 
 latest_frame = None
 detected_faces = []
+get_name = ["Unknown Person"]
 
 def detect_faces(frame):
     global detected_faces
@@ -14,7 +15,7 @@ def detect_faces(frame):
     detected_faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))
 
 def main():
-    global latest_frame, detected_faces
+    global latest_frame, detected_faces,get_name
 
     cam = cv2.VideoCapture(0)
 
@@ -23,7 +24,7 @@ def main():
     saved_pictures_face_list = lf.loadpictures()
 
     def recognition_thread():
-        global latest_frame, detected_faces
+        global latest_frame, detected_faces,get_name
 
         while True:
             if latest_frame is not None:
@@ -33,9 +34,17 @@ def main():
                         results = face_recognition.compare_faces(face_encoding, unknown_face_encoding[0])
                         if results[0] == True:
                             detected_name = name
-                            # print(results)
+                            print(detected_name)
+                            get_name.clear()
+                            get_name.append(detected_name)
+                            print(get_name)
+                            break
                         else:
+                            get_name.clear()
                             detected_name = "Unknown Person"
+                            get_name.append(detected_name)
+                            print(get_name)
+            
                         
                         
 
@@ -48,7 +57,7 @@ def main():
         if ret:
             latest_frame = frame.copy()
             detect_faces(latest_frame)
-            for (x, y, w, h), (name, _) in zip(detected_faces, saved_pictures_face_list):
+            for (x, y, w, h), name in zip(detected_faces, get_name):
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
                 cv2.putText(frame, name, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
 
