@@ -4,11 +4,12 @@ import threading
 import faces.loadfaces as lf
 import argparse
 import faces.registeruser as ru
+import faces.removeUser as rmv
 
 parser = argparse.ArgumentParser(description="Live Facial Recognition And Data Analysis")
 
-parser.add_argument("-ru",type=str,help="Register User")
-
+parser.add_argument("-ru",type=str,help=" - Register User")
+parser.add_argument("-rmv",type=str,help=" - Remove User")
 
 args = parser.parse_args()
 
@@ -84,5 +85,7 @@ def main():
 if __name__ == "__main__":
     if args.ru:
         ru.register_user(args.ru)
+    elif args.rmv:
+        rmv.removeUser(args.rmv)
     else:
         main()

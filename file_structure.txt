@@ -2,17 +2,21 @@
 ├── faces
 │   ├── images
 │   │   ├── chuma.jpg
-│   │   └── ondwela.jpg
+│   │   ├── onde.jpg
+│   │   ├── ondwela.jpg
+│   │   └── removedUsers
 │   ├── __init__.py
 │   ├── loadfaces.py
 │   ├── __pycache__
-│   │   └── loadfaces.cpython-310.pyc
-│   └── registeruser.py
+│   │   ├── __init__.cpython-310.pyc
+│   │   ├── loadfaces.cpython-310.pyc
+│   │   └── registeruser.cpython-310.pyc
+│   ├── registeruser.py
+│   └── removeUser.py
 ├── file_structure.txt
 ├── LICENSE
-├── liveFaceRecMain.py
-├── onrambu022.jpg
+├── main.py
 ├── README.md
 └── requirements.txt
 
-3 directories, 12 files
+4 directories, 15 files
