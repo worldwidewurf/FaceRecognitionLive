@@ -50,7 +50,7 @@ def main():
                                 writer = csv.writer(file)
                                 writer.writerow([name, datetime])
                             detected_name = name
-                            print("Welccome "+detected_name)
+                            print("Welcome "+detected_name)
                             get_name.clear()
                             get_name.append(detected_name)
                             time.sleep(10)
