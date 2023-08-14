@@ -1,0 +1,8 @@
+usage: main.py [-h] [-ru RU] [-rmv RMV]
+
+Live Facial Recognition And Data Analysis
+
+options:
+  -h, --help  show this help message and exit
+  -ru RU      - Register User
+  -rmv RMV    - Remove User

@@ -30,7 +30,7 @@ def register_user(username):
         
         key = cv2.waitKey(1)
         if key == ord('s') and len(faces) > 0:            
-            
+            print(f"Registering User {username}")
             filename = "faces/images/" +username+".jpg"
             
             if os.path.exists(filename):

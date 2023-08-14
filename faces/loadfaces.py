@@ -9,7 +9,7 @@ def loadpictures():
     # The list contains tuples of the form (name, image)
     # The name is the name of the file
     # the image is a f_r face ancoding
-    
+    """Load all the pictures that are in the images folder and return them in a list"""
     
     face_encodings = []
     images_folder = os.path.join(os.path.dirname(os.path.realpath(__file__)), "images")

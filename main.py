@@ -1,3 +1,4 @@
+import time
 import cv2
 import face_recognition
 import threading
@@ -5,6 +6,7 @@ import faces.loadfaces as lf
 import argparse
 import faces.registeruser as ru
 import faces.removeUser as rmv
+import csv
 
 parser = argparse.ArgumentParser(description="Live Facial Recognition And Data Analysis")
 
@@ -43,20 +45,22 @@ def main():
                     if len(unknown_face_encoding) > 0:
                         results = face_recognition.compare_faces(face_encoding, unknown_face_encoding[0])
                         if results[0] == True:
+                            datetime = time.strftime("%Y-%m-%d %H:%M:%S")
+                            with open(f'DataHandling/{time.strftime("%Y-%m-%d")}.csv', 'a', newline='') as file:
+                                writer = csv.writer(file)
+                                writer.writerow([name, datetime])
                             detected_name = name
-                            print(detected_name)
+                            print("Welccome "+detected_name)
                             get_name.clear()
                             get_name.append(detected_name)
-                            print(get_name)
+                            time.sleep(10)
                             break
                         else:
                             get_name.clear()
                             detected_name = "Unknown Person"
                             get_name.append(detected_name)
                             print(get_name)
-            
-                        
-                        
+
 
     recognition_thread = threading.Thread(target=recognition_thread)
     recognition_thread.daemon = True
