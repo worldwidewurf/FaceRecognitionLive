@@ -23,8 +23,8 @@ def register_user(username):
         faces = detect_face(frame)
         
         for (x, y, w, h) in faces:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
             img = frame.copy()
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
         cv2.imshow("Register User", frame)
         
@@ -34,9 +34,19 @@ def register_user(username):
             filename = "faces/images/" +username+".jpg"
             
             if os.path.exists(filename):
-                print("User already exists")
+                over_write = input("User already exists Overwite? (y/n)").lower()
+                if over_write == "y":
+                    
+                    cv2.imwrite(filename, img)
+                    print("User updated successfully")
+                    break
+                else:
+                    print("User not saved")
+                    break
+            else:
+                cv2.imwrite(filename, img)
+                print("User registered successfully")
                 break
-            cv2.imwrite(filename, img)
         if key == 27: 
             break
 
