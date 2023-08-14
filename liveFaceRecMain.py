@@ -2,6 +2,15 @@ import cv2
 import face_recognition
 import threading
 import faces.loadfaces as lf
+import argparse
+import faces.registeruser as ru
+
+parser = argparse.ArgumentParser(description="Live Facial Recognition And Data Analysis")
+
+parser.add_argument("-ru",type=str,help="Register User")
+
+
+args = parser.parse_args()
 
 latest_frame = None
 detected_faces = []
@@ -73,4 +82,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if args.ru:
+        ru.register_user(args.ru)
+    else:
+        main()

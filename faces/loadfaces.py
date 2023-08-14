@@ -8,7 +8,7 @@ def loadpictures():
     # Load all the pictures that are in the images folder and return them in a list
     # The list contains tuples of the form (name, image)
     # The name is the name of the file
-    # the image is a fr face ancoding
+    # the image is a f_r face ancoding
     
     
     face_encodings = []

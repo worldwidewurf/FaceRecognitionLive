@@ -1,0 +1,18 @@
+.
+├── faces
+│   ├── images
+│   │   ├── chuma.jpg
+│   │   └── ondwela.jpg
+│   ├── __init__.py
+│   ├── loadfaces.py
+│   ├── __pycache__
+│   │   └── loadfaces.cpython-310.pyc
+│   └── registeruser.py
+├── file_structure.txt
+├── LICENSE
+├── liveFaceRecMain.py
+├── onrambu022.jpg
+├── README.md
+└── requirements.txt
+
+3 directories, 12 files
