@@ -1,3 +1,4 @@
+import os
 import cv2
 
 def detect_face(frame):
@@ -6,7 +7,12 @@ def detect_face(frame):
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))
     return faces
 
-def register_user():
+def register_user(username):
+    """Register a user by taking a picture of the user and saving it in the images folder
+
+    Args:
+        username (str): The name/username of the user to be registered
+    """
     cam = cv2.VideoCapture(0)
 
     while True:
@@ -23,15 +29,16 @@ def register_user():
         cv2.imshow("Register User", frame)
         
         key = cv2.waitKey(1)
-        if key == ord('s') and len(faces) > 0:
+        if key == ord('s') and len(faces) > 0:            
             
-            filename = input("Enter name of the user: ")
-            filename = "faces/images/" +filename+".jpg"
+            filename = "faces/images/" +username+".jpg"
+            
+            if os.path.exists(filename):
+                print("User already exists")
+                break
             cv2.imwrite(filename, img)
         if key == 27: 
             break
 
     cam.release()
     cv2.destroyAllWindows()
-
-register_user()
