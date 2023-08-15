@@ -1,22 +1,28 @@
 .
+├── DataHandling
+│   ├── 2023-08-14.csv
+│   └── data.csv
 ├── faces
 │   ├── images
 │   │   ├── chuma.jpg
-│   │   ├── onde.jpg
-│   │   ├── ondwela.jpg
-│   │   └── removedUsers
+│   │   └── ondwela.jpg
 │   ├── __init__.py
 │   ├── loadfaces.py
 │   ├── __pycache__
 │   │   ├── __init__.cpython-310.pyc
 │   │   ├── loadfaces.cpython-310.pyc
-│   │   └── registeruser.cpython-310.pyc
+│   │   ├── registeruser.cpython-310.pyc
+│   │   └── removeUser.cpython-310.pyc
 │   ├── registeruser.py
+│   ├── removedUsers
+│   │   └── onde.jpg
 │   └── removeUser.py
-├── file_structure.txt
+├── file_structure.jpg
+├── file.txt
 ├── LICENSE
 ├── main.py
+├── project_file_structure.txt
 ├── README.md
 └── requirements.txt
 
-4 directories, 15 files
+5 directories, 20 files

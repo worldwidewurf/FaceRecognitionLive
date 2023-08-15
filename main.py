@@ -36,6 +36,11 @@ def main():
     saved_pictures_face_list = lf.loadpictures()
 
     def recognition_thread():
+        """Thread to recognize faces in the frame
+            once a face is detected it will compare it with the saved faces
+            and if the face is in the database it will save the attendance entry into a coma separated file csv
+            for te first stage of data analysis 
+        """
         global latest_frame, detected_faces,get_name
 
         while True:
